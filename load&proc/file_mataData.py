@@ -7,7 +7,7 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 
 
-class Processor:
+class MetaDataProcessor:
 
     def __init__(self,file_path):
             self.file_path = file_path

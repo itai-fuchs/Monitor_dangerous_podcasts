@@ -22,12 +22,12 @@ class Processor:
 
 
             return {"File_name": self.file_path.name,
-                  "File-stem": str(self.file_path.stem),
-                  "File_suffix": str(self.file_path.suffix),
+                  "File-stem": self.file_path.stem,
+                  "File_suffix": self.file_path.suffix,
                   "Creation_Time": str(creation_time),
                   "Last_Modified": str(modification_time),
                     "Last_Accessed":str(access_time),
-                  "file_size_bytes" : str(file_stats.st_size),
+                  "file_size_bytes" : file_stats.st_size,
                   "file_size_mb": f"{str(file_stats.st_size / (1024 ** 2))[:4]}MB"
 
                   }

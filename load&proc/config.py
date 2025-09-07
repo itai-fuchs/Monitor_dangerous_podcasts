@@ -5,9 +5,9 @@ import logging
 logging.basicConfig(level=logging.WARNING)
 
 
-file_path="C:/podcasts/download (3).wav"
+FILE_PATH="C:/podcasts"
 
 
 KAFKA_BROKERS = ["localhost:9092"]
 
-topic="PODCASTS_INFO"
+TOPIC="PODCASTS_INFO"

@@ -1,30 +1,23 @@
 import logging
+import config
+import gridfs
+from pymongo import MongoClient
+
 logger = logging.getLogger(__name__)
 
-
 class MongoDAL:
-    def __init__(self, conn, db_name, collection_name):
-        self.conn = conn
-        self.db = self.conn[db_name]
-        self.collection_name = collection_name
-        self.collection = self.db[collection_name]
-
-    def create_coll(self):
+    def __init__(self):
         try:
-            if self.collection_name not in self.db.list_collection_names():
-                self.db.create_collection(self.collection_name)
-                logging.info(f"Collection '{self.collection_name}' created.")
-            else:
-                logging.info(f"Collection '{self.collection_name}' already exists.")
+            client = MongoClient(config.MONGO_URI)
+            self.db = client[config.MONGO_DB]
+            self.collection = self.db[config.MONGO_COLLECTION]
+            self.fs = gridfs.GridFS(self.db)
+            logger.info("Connected to MongoDB successfully")
         except Exception as e:
-            logging.error(f"Failed to create collection '{self.collection_name}': {e}")
+            logger.error(f"Failed to connect to MongoDB: {e}")
+            raise
 
-
-    def add_doc(self, document):
-        try:
-            result = self.collection.insert_one(document)
-            logging.info(f"Inserted document into '{self.collection_name}': {document}")
-            return result.inserted_id
-        except Exception as e:
-            logging.error(f"Failed to insert into '{self.collection_name}': {e}")
-            return None
+    def add_podcast(self, file_path, unique_id):
+        with open(file_path, "rb") as f:
+            file_id = self.fs.put(f, filename=unique_id)
+        return str(file_id)

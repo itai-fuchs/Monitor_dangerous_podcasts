@@ -1,48 +1,41 @@
 import logging
 from mongo_dal import MongoDAL
-from mongo_conn import MongoConn
-# from elastic import Elastic
+from elastic import EsDAL
 import config
-# from kafka_client import consumer
-import uuid
-
+from kafka_client import consumer
+import hashlib
+import json
 
 logger = logging.getLogger(__name__)
 
-doc ={"name":"itai"}
-conn=MongoConn(config.MONGO_URI)
-conn.connect()
-print(conn.conn)
 
-mongo=MongoDAL(conn.conn,config.MONGO_DB,config.MONGO_COLLECTION)
-
-mongo.add_doc(doc)
+def add_content_hash_id(data, length=10):
+   data_str = json.dumps(data, sort_keys=True)
+   hash_id = hashlib.sha256(data_str.encode()).hexdigest()[:length]
+   data["id"] = hash_id
+   return data
 
 
 
-# es=Elastic(config.ELASTIC_CONN,config.INDEX_NAME,config.CUSTOM_MAPPING)
-#
-# es.create_index()
+mongo_cli=MongoDAL()
+es=EsDAL()
+es.create_index()
 
 
-def addID(json):
-   json["id"] = str(uuid.uuid4())
+for message in consumer:
+   try:
 
+      doc = message.value
+      doc=add_content_hash_id(doc)
+      try:
+         es.add_podcast(doc["id"], doc["metaData"])
+      except Exception as e:
+         logger.error(f"Failed to send to elastic: {e}")
+      try:
+         mongo_cli.add_podcast(doc["path"],doc["id"])
 
+      except Exception as e:
+         logger.error(f"Failed to send to mongo: {e}")
 
-
-# for message in consumer:
-#    try:
-#       topic = message.topic
-#       doc = message.value
-#       addID(doc)
-#       pprint(doc)
-#
-#
-#    except Exception as e:
-#       logger.error(f"Failed to publish document: {e}")
-#
-#
-#
-
-
+   except Exception as e:
+      logger.error(f"Failed to publish document: {e}")

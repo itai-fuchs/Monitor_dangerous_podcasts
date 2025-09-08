@@ -22,7 +22,7 @@ class MetaDataProcessor:
 
 
             return {"File_name": self.file_path.name,
-                  "File-stem": self.file_path.stem,
+                  "File_stem": self.file_path.stem,
                   "File_suffix": self.file_path.suffix,
                   "Creation_Time": str(creation_time),
                   "Last_Modified": str(modification_time),
@@ -39,7 +39,7 @@ class MetaDataProcessor:
 
     #Building json
     def get_json(self):
-        return {"path":str(self.file_path.parent),
+        return {"path":str(self.file_path),
                 "metaData":self.metaData()}
 
 

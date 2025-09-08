@@ -12,31 +12,67 @@ KAFKA_BROKERS = ["localhost:9092"]
 
 GET_TOPIC="PODCASTS_INFO"
 
+
+
 #elastic conf
 
-ELASTIC_CONN ="http://localhost:9200"
-INDEX_NAME="podcats_mataData"
-
-CUSTOM_MAPPING = {
+ELASTIC_HOST ="http://localhost:9200"
+ELASTIC_INDEX="podcats_mata_data"
+ELASTIC_MAPPING ={
     "properties": {
-        "PodacastID": {"type": "float"},
-        "MeataData": {
-            "type": "text",
+      "path": {
+        "type": "keyword"
+      },
+      "metaData": {
+        "properties": {
+          "File_name": {
+            "type": "keyword"
+          },
+          "File_stem": {
+            "type": "keyword"
+          },
+          "File_suffix": {
+            "type": "keyword"
+          },
+          "Creation_Time": {
+            "type":"keyword"
+
+          },
+          "Last_Modified": {
+            "type":"keyword"
+
+          },
+          "Last_Accessed": {
+            "type": "keyword"
+
+          },
+          "file_size_bytes": {
+            "type": "long"
+          },
+          "file_size_mb": {
+            "type": "float"
+          }
         }
+      }
     }
-}
+  }
+
+
 
 #mongo conf
 MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
 MONGO_PORT = int(os.getenv("MONGO_PORT", "27017"))
-MONGO_DB   = os.getenv("MONGO_DB", "appdb")
-MONGO_USER = os.getenv("MONGO_USER", "appuser")
+MONGO_DB   = os.getenv("MONGO_DB", "IDF")
+MONGO_USER = os.getenv("MONGO_USER", "localhost")
 MONGO_PASS = os.getenv("MONGO_PASS", "apppass")
-MONGO_AUTH_SOURCE = os.getenv("MONGO_AUTH_SOURCE", MONGO_DB)
 
-MONGO_URI  = os.getenv(
-    "MONGO_URI",
-    f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/{MONGO_DB}"
-)
+MONGO_URI ="mongodb://localhost:27017/"
+# MONGO_URI  = os.getenv(
+#     "MONGO_URI",
+#     f"mongodb://{MONGO_USER}:{MONGO_PASS}@{MONGO_HOST}:{MONGO_PORT}/{MONGO_DB}"
+# )
 
-MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "podcast")
+MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "podcasts_files")
+
+
+

@@ -1,8 +1,8 @@
 from kafka import KafkaConsumer
-import json, logging
+import json
 
-
-logger = logging.getLogger(__name__)
+from logger import Logger
+logger = Logger.get_logger(__name__)
 
 class Consumer:
     """
@@ -19,8 +19,8 @@ class Consumer:
                 auto_offset_reset="earliest",
                 enable_auto_commit=True
             )
-            logger.info("KafkaConsumer created successfully")
+            logger.info("info: KafkaConsumer created successfully")
 
         except Exception as e:
-            logger.error(f"Error creating KafkaConsumer: {e}")
+            logger.error(f"Error: creating KafkaConsumer: {e}")
 

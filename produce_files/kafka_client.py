@@ -1,19 +1,22 @@
 from kafka import KafkaProducer
-import config
-import json, logging
+import json
+
+from logger import Logger
+logger = Logger.get_logger(__name__)
 
 # create kafka producer
 
-logger = logging.getLogger(__name__)
+class Producer:
 
-try:
+    def __init__(self,kafka_bootstrap):
+        try:
 
-    producer = KafkaProducer(
-        bootstrap_servers=config.KAFKA_BOOTSTRAP,
-        value_serializer=lambda x: json.dumps(x).encode("utf-8")
+            self.producer = KafkaProducer(
+                bootstrap_servers=kafka_bootstrap,
+                value_serializer=lambda x: json.dumps(x).encode("utf-8")
 
-    )
-    logger.info("KafkaProducer created successfully")
+            )
+            logger.info("info: KafkaProducer created successfully")
 
-except Exception as e:
-    logger.error(f"Error creating KafkaProducer: {e}")
+        except Exception as e:
+            logger.error(f"Error: creating KafkaProducer: {e}")

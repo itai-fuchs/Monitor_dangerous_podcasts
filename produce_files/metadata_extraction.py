@@ -1,8 +1,7 @@
-import logging
-
-
 from datetime import datetime
-logger = logging.getLogger(__name__)
+
+from logger import Logger
+logger = Logger.get_logger(__name__)
 
 
 class MetadataExtraction:
@@ -17,7 +16,7 @@ class MetadataExtraction:
             creation_time = datetime.fromtimestamp(file_stats.st_ctime)
             modification_time = datetime.fromtimestamp(file_stats.st_mtime)
             access_time = datetime.fromtimestamp(file_stats.st_atime)
-
+            logger.info(f"info: Metadata about the file {self.file_path} created successfully.")
 
             return {"File_name": self.file_path.name,
                   "File_stem": self.file_path.stem,
@@ -31,9 +30,9 @@ class MetadataExtraction:
                   }
 
         except FileNotFoundError:
-            print(f"Error: File '{self.file_path}' not found.")
+            logger.error(f"Error: File '{self.file_path}' not found.")
         except Exception as e:
-            print(f"An error occurred: {e}")
+            logger.error(f"ERROR: An error occurred: {e}")
 
     #Building json with path & metadata
     def get_json(self):

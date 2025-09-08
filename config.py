@@ -1,16 +1,14 @@
-import logging
 import os
 
-#log conf
-logging.basicConfig(level=logging.WARNING)
 
 
 
+FILE_PATH="C:/podcasts"
 
 #kafka conf
 KAFKA_BOOTSTRAP = ["localhost:9092"]
 
-GET_TOPIC="PODCASTS_INFO"
+TOPIC="PODCASTS_INFO"
 
 
 
@@ -60,11 +58,11 @@ ELASTIC_MAPPING ={
 
 
 #mongo conf
-MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
-MONGO_PORT = int(os.getenv("MONGO_PORT", "27017"))
+# MONGO_HOST = os.getenv("MONGO_HOST", "mongodb")
+# MONGO_PORT = int(os.getenv("MONGO_PORT", "27017"))
 MONGO_DB   = os.getenv("MONGO_DB", "IDF")
-MONGO_USER = os.getenv("MONGO_USER", "localhost")
-MONGO_PASS = os.getenv("MONGO_PASS", "apppass")
+# MONGO_USER = os.getenv("MONGO_USER", "localhost")
+# MONGO_PASS = os.getenv("MONGO_PASS", "apppass")
 
 MONGO_URI ="mongodb://localhost:27017/"
 # MONGO_URI  = os.getenv(
@@ -73,6 +71,13 @@ MONGO_URI ="mongodb://localhost:27017/"
 # )
 
 MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "podcasts_files")
+
+
+
+
+
+
+
 
 
 

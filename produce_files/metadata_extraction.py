@@ -1,19 +1,17 @@
 import logging
-from pprint import pprint
 
-import config
-from pathlib import Path
+
 from datetime import datetime
 logger = logging.getLogger(__name__)
 
 
-class MetaDataProcessor:
+class MetadataExtraction:
 
     def __init__(self,file_path):
             self.file_path = file_path
 
    #Extract file metadata
-    def metaData(self):
+    def extract_meta_data(self):
         try:
             file_stats =  self.file_path.stat()
             creation_time = datetime.fromtimestamp(file_stats.st_ctime)
@@ -22,7 +20,7 @@ class MetaDataProcessor:
 
 
             return {"File_name": self.file_path.name,
-                  "File-stem": self.file_path.stem,
+                  "File_stem": self.file_path.stem,
                   "File_suffix": self.file_path.suffix,
                   "Creation_Time": str(creation_time),
                   "Last_Modified": str(modification_time),
@@ -37,9 +35,9 @@ class MetaDataProcessor:
         except Exception as e:
             print(f"An error occurred: {e}")
 
-    #Building json
+    #Building json with path & metadata
     def get_json(self):
-        return {"path":str(self.file_path.parent),
-                "metaData":self.metaData()}
+        return {"path":str(self.file_path),
+                "metaData":self.extract_meta_data()}
 
 

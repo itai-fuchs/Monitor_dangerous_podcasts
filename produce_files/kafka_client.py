@@ -2,13 +2,14 @@ from kafka import KafkaProducer
 import config
 import json, logging
 
+# create kafka producer
 
 logger = logging.getLogger(__name__)
 
 try:
 
     producer = KafkaProducer(
-        bootstrap_servers=config.KAFKA_BROKERS,
+        bootstrap_servers=config.KAFKA_BOOTSTRAP,
         value_serializer=lambda x: json.dumps(x).encode("utf-8")
 
     )

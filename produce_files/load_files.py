@@ -1,8 +1,14 @@
 from pathlib import Path
 import logging
+
+
 logger = logging.getLogger(__name__)
 
+
 class DirectoryScanner:
+    '''
+    create list of all files in directory
+    '''
     def __init__(self, directory):
         try:
             self.directory = Path(directory)

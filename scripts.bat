@@ -1,8 +1,18 @@
-docker run -d --name broker  -p 9092:9092 `
-    -e KAFKA_CFG_NODE_ID=1 `
-    -e KAFKA_CFG_PROCESS_ROLES=broker,controller `
-    -e KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER `
-    -e KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093 `
-    -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 `
-    -e KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@localhost:9093 `
-    bitnami/kafka:latest
+
+
+
+cd C:\Users\itai\PycharmProjects\Monitor_dangerous_podcasts\yamls
+
+#run kafka container
+   docker-compose -f "docker-compose_kafka.yml" up -d
+
+
+
+# run elastic & kibana docker compose
+
+    docker-compose -f "docker-compose elastic.yml" up -d
+
+cd ..
+#run mongo container
+
+  docker run --name my-mongo-container -d -p 27017:27017 mongo:latest

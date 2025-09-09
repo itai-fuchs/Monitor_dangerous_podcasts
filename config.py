@@ -74,9 +74,10 @@ MONGO_COLLECTION = os.getenv("MONGO_COLLECTION", "podcasts_files")
 
 
 
+hostile_list="R2Vub2NpZGUSV2FyIENyaW1lcyxBcGFydGhlaWQs TWFzc2FjcmUsTmFrYmEsRG1zcGxhY2 VtZW50LEh1bWFuaXRhcmlhbiBDcmlzaXMsQmxvY2thZGUST2NjdXBhdGlvbixSZWZ1Z2V1 cyxJQOMSQKRT"
 
 
-
+les_hostile_list="RnJlZWRvbSBGbG90aWxsYSxSZXNpc3RhbmN1LExpYmVyYXRpb24sRnJ1ZSBQYWx1c3RpbmUSR2F6YSXDZWFzZWZpcmUsUHJvdGVzdCxVT1JXQQ=="
 
 
 

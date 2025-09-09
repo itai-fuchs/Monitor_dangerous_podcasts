@@ -22,10 +22,10 @@ class EsDAL:
         self.index = index
 
 
-    def update_file(self, unique_id, text):
+    def update_file(self, unique_id, val):
 
         updated_data = {
-            "stt":text}
+            val}
 
         try:
             response = self.es.update(index=self.index, id=unique_id, body={"doc": updated_data})

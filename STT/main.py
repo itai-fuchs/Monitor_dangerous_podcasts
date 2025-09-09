@@ -19,7 +19,7 @@ for _id in files_id:
     audio_bytes = file.read()
     audio_stream = io.BytesIO(audio_bytes)
     text=stt.transcribe(audio_stream)
-    es.update_podcast(_id,text)
+    es.update_file(_id,text)
 
 
 

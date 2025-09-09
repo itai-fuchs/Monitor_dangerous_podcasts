@@ -21,6 +21,7 @@ class Logger:
             class ESHandler(logging.Handler):
                 def emit(self, record):
                     try:
+
                         es.index(index=index, document={
                             "timestamp": datetime.utcnow().isoformat(),
                             "level": record.levelname,

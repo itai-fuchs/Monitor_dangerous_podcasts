@@ -2,7 +2,7 @@ from mongo_dal import MongoDAL
 from elastic_dal import EsDAL
 import config
 from kafka_client import Consumer
-from STT import AudioTranscriber
+from STT.STT import AudioTranscriber
 from id_generetor import add_content_hash_id
 from logger import Logger
 
@@ -21,7 +21,7 @@ audio_transcriber=AudioTranscriber()
 
 
 #Loops over a message that the consumer receives.
-#Adds an ID and a transcript to them. And sends them to Mongo and Elastic respectively.
+#Adds an ID. And sends them to Mongo and Elastic respectively.
 
 for message in consumer:
     try:
@@ -31,9 +31,8 @@ for message in consumer:
          # add id to massage
          doc=add_content_hash_id(doc)
 
-         # add STT to metadata
-         text = audio_transcriber.transcribe(doc["path"])
-         doc["metaData"]["stt"]=text
+
+
 
          #send metaData to elastic
          es.add_podcast(doc["id"], doc["metaData"])

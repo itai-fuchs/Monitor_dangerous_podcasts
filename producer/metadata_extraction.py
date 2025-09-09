@@ -5,11 +5,14 @@ logger = Logger.get_logger(__name__)
 
 
 class MetadataExtraction:
+    """
+    class that Extract meta of file
+    """
 
     def __init__(self,file_path):
             self.file_path = file_path
 
-   #Extract file metadata
+   #Extract the file metadata
     def extract_meta_data(self):
         try:
             file_stats =  self.file_path.stat()
@@ -34,7 +37,7 @@ class MetadataExtraction:
         except Exception as e:
             logger.error(f"ERROR: An error occurred: {e}")
 
-    #Building json with path & metadata
+    #Build json with path & metadata
     def get_json(self):
         return {"path":str(self.file_path),
                 "metaData":self.extract_meta_data()}

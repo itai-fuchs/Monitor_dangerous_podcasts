@@ -2,7 +2,11 @@ from faster_whisper import WhisperModel
 from logger import Logger
 logger = Logger.get_logger(__name__)
 
+
 class AudioTranscriber:
+    """
+    Class for transcribing audio files. By file path.
+    """
     def __init__(self, model_size="tiny"):
         self.model = WhisperModel(model_size)
 

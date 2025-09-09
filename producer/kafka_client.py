@@ -4,10 +4,11 @@ import json
 from logger import Logger
 logger = Logger.get_logger(__name__)
 
-# create kafka producer
 
 class Producer:
-
+    """
+    creating kafka producer
+    """
     def __init__(self,kafka_bootstrap):
         try:
 

@@ -1,13 +1,14 @@
 import config
 from kafka_client import Producer
-from load_files import DirectoryScanner
+from directory_scanner import DirectoryScanner
 from metadata_extraction import MetadataExtraction
 from logger import Logger
 
 logger = Logger.get_logger(__name__)
 producer=Producer(config.KAFKA_BOOTSTRAP).producer
-files_list = DirectoryScanner(config.FILE_PATH).get_files()
+files_list = DirectoryScanner(config.FILES_PATH).get_files()
 
+#loop for build json with metadata of each file path and send him to kafka
 for file in files_list:
     doc = MetadataExtraction(file).get_json()
     try:

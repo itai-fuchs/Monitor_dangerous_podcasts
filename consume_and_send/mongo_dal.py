@@ -6,6 +6,9 @@ import config
 logger = Logger.get_logger(__name__)
 
 class MongoDAL:
+    """
+    Class for connecting with mongo and uploading files using the gridfs library
+    """
     def __init__(self):
         try:
             client = MongoClient(config.MONGO_URI)

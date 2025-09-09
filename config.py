@@ -3,7 +3,7 @@ import os
 
 
 
-FILE_PATH="C:/podcasts"
+FILES_PATH="C:/podcasts"
 
 #kafka conf
 KAFKA_BOOTSTRAP = ["localhost:9092"]

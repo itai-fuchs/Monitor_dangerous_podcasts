@@ -21,8 +21,6 @@ class Logger:
             class ESHandler(logging.Handler):
                 def emit(self, record):
                     try:
-                        if es.indices.exists(index=index):
-                                es.indices.delete(index=index)
 
                         es.index(index=index, document={
                             "timestamp": datetime.utcnow().isoformat(),

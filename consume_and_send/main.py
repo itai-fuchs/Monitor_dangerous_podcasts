@@ -11,7 +11,7 @@ from logger import Logger
 logger = Logger.get_logger(__name__)
 
 
-#Initializes a consumer object & connection to Mongo & an elastic index.
+#Initializes text_analysis consumer object & connection to Mongo & an elastic index.
 
 mongo_cli=MongoDAL()
 es=EsDAL()
@@ -20,7 +20,7 @@ consumer=Consumer(config.TOPIC, config.KAFKA_BOOTSTRAP).consumer
 audio_transcriber=AudioTranscriber()
 
 
-#Loops over a message that the consumer receives.
+#Loops over text_analysis message that the consumer receives.
 #Adds an ID. And sends them to Mongo and Elastic respectively.
 
 for message in consumer:

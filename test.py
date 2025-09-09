@@ -11,7 +11,7 @@
 #
 # import gridfs
 #
-# # Create a GridFS object for the selected database
+# # Create text_analysis GridFS object for the selected database
 # fs = gridfs.GridFS(db)
 #
 # # Define the file path you want to upload

@@ -18,12 +18,8 @@ files_id = mongo_cli.get__all_docs_id()
 
 for _id in files_id:
 
-    file=mongo_cli.get_doc_by_id(_id)
-    audio_bytes = file.read()
+    doc=mongo_cli.get_doc_by_id(_id)
+    audio_bytes = doc.read()
     audio_stream = io.BytesIO(audio_bytes)
     text=stt.transcribe(audio_stream)
-    es.update_document(_id,text)
-
-
-
-
+    es.update_document(_id,"stt",text)

@@ -23,4 +23,3 @@ class Consumer:
 
         except Exception as e:
             logger.error(f"Error: creating KafkaConsumer: {e}")
-

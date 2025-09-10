@@ -39,8 +39,3 @@ class EsDAL:
             logger.info(f"info: add podcast {unique_id} successfully to elastic")
         except Exception as e:
             logger.error(f"Error: Failed to add to elastic {unique_id}: {e}")
-
-
-
-
-

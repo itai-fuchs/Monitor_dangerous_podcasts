@@ -9,7 +9,9 @@ logger = Logger.get_logger(__name__)
 
 class EsDAL:
 
-
+    """
+    class to create index in elastic & add podcast meta data
+    """
     def __init__(self, host=config.ELASTIC_HOST, index=config.ELASTIC_INDEX):
         try:
             self.es = Elasticsearch(host)
@@ -18,18 +20,3 @@ class EsDAL:
             logger.error(f"ERROR: Failed to connect to Elasticsearch: {e}")
             raise
         self.index = index
-
-
-    def update_document(self, unique_id,filed,text):
-        """
-            method to add stt to doc in elastic
-        """
-
-        updated_data = {
-            filed:text}
-
-        try:
-            response = self.es.update(index=self.index, id=unique_id, body={"doc": updated_data})
-            logger.info(f"info: Document STT updated successfully:")
-        except Exception as e:
-            logger.error(f"Error: updating document STT: {e}")

@@ -20,6 +20,3 @@ class AudioTranscriber:
             return text.strip()
         except Exception as e:
             logger.error(f"ERROR: Failed to STT file {file_path}: {e}")
-
-
-

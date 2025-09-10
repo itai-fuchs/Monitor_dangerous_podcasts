@@ -42,5 +42,3 @@ class MetadataExtraction:
     def get_json(self):
         return {"path":str(self.file_path),
                 "metaData":self.extract_meta_data()}
-
-

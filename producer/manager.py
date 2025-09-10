@@ -1,3 +1,4 @@
+
 import config
 from kafka_client import Producer
 from directory_scanner import DirectoryScanner

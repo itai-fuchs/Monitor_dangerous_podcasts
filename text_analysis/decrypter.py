@@ -20,7 +20,3 @@ class Decrypter:
             return decoded_text.lower().split(",")
         except Exception as e:
             logger.info(f"error: failed to decoding text: {e}")
-
-
-
-

@@ -44,4 +44,3 @@ for message in consumer:
 
     except Exception as e:
       logger.error(f"ERROR: Failed to publish message {message}: {e}")
-

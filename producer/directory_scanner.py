@@ -20,7 +20,3 @@ class DirectoryScanner:
     :return: all audio files in the parent directory
         """
         return [f for f in self.directory.iterdir() if f.is_file()and f.suffix.lower() == ".wav"]
-
-
-
-

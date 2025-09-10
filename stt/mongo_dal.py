@@ -34,8 +34,3 @@ class MongoDAL:
 
     def get__all_docs_id(self):
             return [f.filename for f in self.fs.find({})]
-
-
-
-
-

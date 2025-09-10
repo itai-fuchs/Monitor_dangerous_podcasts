@@ -20,7 +20,7 @@ class TextAnalysis:
 
         return rank
 
-    #Calculating risk percentages
+    #Calculating risk percentages and normalize result
     def risk_percent(self):
         if self.dangerous_words() == 0:
             risk_percent= 0.0

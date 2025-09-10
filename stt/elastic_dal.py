@@ -20,13 +20,13 @@ class EsDAL:
         self.index = index
 
 
-    def update_document(self, unique_id, text):
+    def update_document(self, unique_id,filed,text):
         """
             method to add stt to doc in elastic
         """
 
         updated_data = {
-            "stt":text}
+            filed:text}
 
         try:
             response = self.es.update(index=self.index, id=unique_id, body={"doc": updated_data})

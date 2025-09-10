@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  service1:
+    build: ../producer
+    container_name: producer
+    environment:
+      KAFKA_BROKER: kafka:9092
+    ports:
+      - "5001:5000"
+    networks:
+      - app-net
+
+  service2:
+    build: ../consume_and_send
+    container_name: consume_and_send
+    environment:
+      KAFKA_BROKER: kafka:9092
+      MONGO_URI: mongodb://mongo:27017/mydb
+      ELASTICSEARCH_HOST: http://elasticsearch:9200
+    ports:
+      - "5002:5000"
+    networks:
+      - app-net
+
+  service3:
+    build: ../stt
+    container_name: stt
+    environment:
+      MONGO_URI: mongodb://mongo:27017/mydb
+      ELASTICSEARCH_HOST: http://elasticsearch:9200
+    ports:
+      - "5003:5000"
+    networks:
+      - app-net
+
+  service4:
+    build: ../text_analysis
+    container_name: text_analysis
+    environment:
+      ELASTICSEARCH_HOST: http://elasticsearch:9200
+    ports:
+      - "5004:5000"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    external: true

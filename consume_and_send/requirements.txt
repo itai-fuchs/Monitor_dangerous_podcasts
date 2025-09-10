@@ -3,3 +3,4 @@ hashlib
 pymongo
 faster_whisper
 kafka-python
+gridfs

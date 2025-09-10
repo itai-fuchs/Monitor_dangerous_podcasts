@@ -14,6 +14,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the app folder
 COPY . .
 
-
+EXPOSE 8000
 
 CMD ["manager", "--host", "0.0.0.0", "--port", "8000"]

@@ -40,7 +40,5 @@ for message in consumer:
          # send file to mongo
          mongo_cli.add_document(doc["path"],doc["id"])
 
-
-
     except Exception as e:
       logger.error(f"ERROR: Failed to publish message {message}: {e}")

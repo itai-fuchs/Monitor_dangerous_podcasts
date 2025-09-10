@@ -22,6 +22,7 @@ for doc in es.get_documents_filed("stt"):
 
         #Adds a risk percentage
         risk_percent=TextAnalysis(text,hostile_list,les_hostile_list).risk_percent()
+
         es.update_document_filed(_id,risk_percent)
 
         #Adds if is_criminal
@@ -31,5 +32,4 @@ for doc in es.get_documents_filed("stt"):
 
         #Adds risk level
         risk_level = TextAnalysis(text, hostile_list, les_hostile_list).risk_level()
-
         es.update_document_filed(_id, risk_level)

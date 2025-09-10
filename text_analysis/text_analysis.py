@@ -31,18 +31,14 @@ class TextAnalysis:
     # Calculating if is criminal_event
     def criminal_event(self):
         risk_percent=self.risk_percent()["bds_percent"]
-        return {"is_bds":risk_percent > 65}
+        return {"is_bds":risk_percent > 50}
 
     # Calculating the risk level
     def risk_level(self):
         threat_level="None"
         risk_percent = self.risk_percent()["bds_percent"]
-        if risk_percent >=33 and risk_percent<66:
+        if (risk_percent <40) and risk_percent >0:
             threat_level = "medium"
-        elif risk_percent >= 66:
+        elif risk_percent >40 :
             threat_level = "high"
-        elif risk_percent>1 and risk_percent<33:
-            threat_level = "low"
-
-
         return {"bds_threat_level":threat_level}

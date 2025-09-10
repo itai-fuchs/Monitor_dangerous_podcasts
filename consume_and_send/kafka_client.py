@@ -6,7 +6,7 @@ logger = Logger.get_logger(__name__)
 
 class Consumer:
     """
-    class to create consumer object.
+    create consumer object.
     """
 
     def __init__(self,topic, bootstrap_servers):

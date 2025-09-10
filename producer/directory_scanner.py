@@ -4,13 +4,15 @@ logger = Logger.get_logger(__name__)
 
 
 class DirectoryScanner:
-
+    """
+    A class that returns list of all "wav" files located in the parent path.
+    """
     def __init__(self, directory):
         try:
             self.directory = Path(directory)
             logger.info(f"info: {self.directory} found successfully.")
         except FileNotFoundError:
-            logger.error(f"Error: { self.directory} not found. Please ensure the file exists.")
+            logger.error(f"Error: { self.directory} not found. Please ensure the directory exists.")
 
     def get_files(self):
         """

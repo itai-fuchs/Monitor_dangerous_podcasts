@@ -7,7 +7,8 @@ logger = Logger.get_logger(__name__)
 
 class MongoDAL:
     """
-    Class for connecting with mongo to get files using the gridfs library
+    Class for connecting with mongo to get files,
+     using the gridfs library.
     """
     def __init__(self):
         try:
@@ -22,16 +23,16 @@ class MongoDAL:
 
 
 
-    def get_file_by_id(self,id):
+    def get_doc_by_id(self,id):
         try:
             file = self.fs.find_one({'filename': id})
-            logger.info(f"get file {id} from MongoDB successfully")
+            logger.info(f"info: get file {id} from MongoDB successfully")
             return file
         except Exception as e:
             logger.error(f"ERROR: Failed to get file {id} from MongoDB: {e}")
 
 
-    def get__all_files_id(self):
+    def get__all_docs_id(self):
             return [f.filename for f in self.fs.find({})]
 
 

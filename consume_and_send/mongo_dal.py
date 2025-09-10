@@ -7,7 +7,8 @@ logger = Logger.get_logger(__name__)
 
 class MongoDAL:
     """
-    Class for connecting with mongo and uploading files using the gridfs library
+    Class for connecting with mongo and uploading files.
+     using the gridfs module.
     """
     def __init__(self):
         try:
@@ -20,7 +21,9 @@ class MongoDAL:
         self.collection = self.db[config.MONGO_COLLECTION]
         self.fs = gridfs.GridFS(self.db)
 
-    def add_podcast(self, file_path, unique_id):
+    def add_document(self, file_path, unique_id):
+        #Adds a file to a collection
+        # creates a binary representation of it in the collection using gridfs.
         try:
             with open(file_path, "rb") as f:
                 file_id = self.fs.put(f, filename=unique_id)

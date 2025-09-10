@@ -5,10 +5,18 @@ from metadata_extraction import MetadataExtraction
 from logger import Logger
 
 logger = Logger.get_logger(__name__)
-producer=Producer(config.KAFKA_BOOTSTRAP).producer
+
+
+
+#create files_path_list
 files_list = DirectoryScanner(config.FILES_PATH).get_files()
 
-#loop for build json with metadata of each file path and send him to kafka
+#intelize kafka Producer
+producer=Producer(config.KAFKA_BOOTSTRAP).producer
+
+#loop for build json with metadata of each file path,
+# and send him to kafka.
+
 for file in files_list:
     doc = MetadataExtraction(file).get_json()
     try:

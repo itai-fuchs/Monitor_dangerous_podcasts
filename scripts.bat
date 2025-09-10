@@ -17,3 +17,5 @@ cd ..
 #run mongo container
 
   docker run --name my-mongo-container -d -p 27017:27017 mongo:latest
+
+cd .

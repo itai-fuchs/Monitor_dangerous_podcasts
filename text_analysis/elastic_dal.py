@@ -1,5 +1,6 @@
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Search
+
+from elasticsearch import helpers
 import config
 
 from logger import Logger
@@ -7,11 +8,10 @@ logger = Logger.get_logger(__name__)
 
 
 
-
 class EsDAL:
 
     """
-    class to update doc in elastic to add podcast meta data
+    class to add new fild to doc in elastic.
     """
     def __init__(self, host=config.ELASTIC_HOST, index=config.ELASTIC_INDEX):
         try:
@@ -23,19 +23,15 @@ class EsDAL:
         self.index = index
 
 
-    def update_file(self, unique_id, val):
-
-        updated_data = {
-            val}
-
+    def update_document(self, unique_id, val):
         try:
-            response = self.es.update(index=self.index, id=unique_id, body={"doc": updated_data})
-            logger.info(f"Document updated successfully: {response['result']}")
+            response = self.es.update(index=self.index, id=unique_id, body={"doc": val})
+            logger.info(f"info: Document  updated successfully: {response['result']}")
         except Exception as e:
-            logger.error(f"Error updating document: {e}")
+            logger.error(f"Error: updating document : {e}")
 
 
-    def get_file_stt(self, document_id,field_to_retrieve):
+    def get_document_filed(self, document_id,field_to_retrieve):
         try:
             # Get the document and specify the _source_includes parameter
             response = self.es.get(
@@ -46,29 +42,30 @@ class EsDAL:
 
             if response.get('found'):
                 # Access the specific field from the _source
-                field_value = response['_source'].get(field_to_retrieve)
-                return field_value.lower()
+                field_value = response['_source'].get(field_to_retrieve).lower()
+                logger.info(f"info: get {field_to_retrieve} successfully from Document  ID '{document_id}'")
+                return field_value
             else:
-                print(f"Document with ID '{document_id}' not found in index '{self.index}'.")
+                logger.error(f"error: Document with ID '{document_id}' not found in index '{self.index}'.")
 
         except Exception as e:
-            print(f"An error occurred: {e}")
+            logger.error(f"error: occurred for Document ID {document_id} : {e}")
 
-    def get_all_files_id(self):
-        s = Search(using=self.es, index=self.index)
+    def get_all_document_ids(self):
+        try:
+            hits = helpers.scan(
+                self.es,
+                query={"query": {"match_all": {}}},
+                scroll='1m',
+                index=self.index
+            )
 
-        # Exclude the _source field to retrieve only metadata (including _id)
-        s = s.source(False)
+            ids = [hit['_id'] for hit in hits]
+            logger.info(f"info: get all IDS successfully")
+            return ids
+        except Exception as e:
+            logger.error(f"error: failed to get all document id {e}")
 
-        # Use scan to efficiently retrieve all document IDs
-        document_ids = [hit.meta.id for hit in s.scan()]
-        return document_ids
 
-# def get_document(self):
-#     response = self.es.search(index=self.index_name, query={"match_all": {}}, size=1000)
-#     return response['hits']['hits']
-#
-#
-# es = ElasticDAL()
-# for i in es.get_document():
-#     print(i["_source"]["stt"])
+
+

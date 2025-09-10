@@ -5,7 +5,7 @@ logger = Logger.get_logger(__name__)
 
 class AudioTranscriber:
     """
-    Class for transcribing audio files
+    Class for transcribing audio files to a text
     """
     def __init__(self, model_size="tiny"):
         self.model = WhisperModel(model_size)

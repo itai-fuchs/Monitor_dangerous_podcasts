@@ -1,4 +1,4 @@
-class Text_analysis:
+class TextAnalysis:
 
     def __init__(self,text,hostile_list,les_hostile_list):
 
@@ -6,7 +6,8 @@ class Text_analysis:
         self.hostile_list=hostile_list
         self.les_hostile_list=les_hostile_list
 
-    def classification(self):
+    #Calculates amount of dangerous words in the text from words lists
+    def dangerous_words(self):
         rank = 0
 
         for word in self.hostile_list:
@@ -19,16 +20,29 @@ class Text_analysis:
 
         return rank
 
+    #Calculating risk percentages
     def risk_percent(self):
-        risk_percent=len(self.text.split())/self.classification()
-        print(len(self.text.split()))
+        if self.dangerous_words() == 0:
+            risk_percent= 0.0
+        else:
+            risk_percent= round((self.dangerous_words() / len(self.text.split()))*420, 2)
         return {"bds_percent":risk_percent}
 
-
+    # Calculating if is criminal_event
     def criminal_event(self):
-        risk_percent=self.risk_percent().val
-        return {"is_bds":risk_percent > 75}
+        risk_percent=self.risk_percent()["bds_percent"]
+        return {"is_bds":risk_percent > 65}
 
-    # def risk_level(self):
-    #     {"bds_threat_level":}
-    #     pass
+    # Calculating the risk level
+    def risk_level(self):
+        threat_level="None"
+        risk_percent = self.risk_percent()["bds_percent"]
+        if risk_percent >=33 and risk_percent<66:
+            threat_level = "medium"
+        elif risk_percent >= 66:
+            threat_level = "high"
+        elif risk_percent>1 and risk_percent<33:
+            threat_level = "low"
+
+
+        return {"bds_threat_level":threat_level}

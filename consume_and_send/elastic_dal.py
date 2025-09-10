@@ -33,7 +33,7 @@ class EsDAL:
             logger.error(f"Error: creating index {self.index}: {e}")
 
 
-    def add_podcast(self, unique_id, metadata):
+    def add_document(self, unique_id, metadata):
         try:
             self.es.index(index=self.index, id=unique_id, document=metadata)
             logger.info(f"info: add podcast {unique_id} successfully to elastic")
